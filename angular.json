@@ -36,6 +36,12 @@
             "localize": ["ja"]
           },
           "configurations": {
+            "disable-localize": {
+              "localize": false
+            },
+            "es2015": {
+              "tsConfig": "tsconfig-es2015.app.json"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -72,6 +78,12 @@
             "browserTarget": "test-i18n:build"
           },
           "configurations": {
+            "disable-localize": {
+              "browserTarget": "test-i18n:build:disable-localize"
+            },
+            "es2015": {
+              "browserTarget": "test-i18n:build:es2015"
+            },
             "production": {
               "browserTarget": "test-i18n:build:production"
             }
