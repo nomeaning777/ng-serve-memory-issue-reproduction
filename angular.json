@@ -4,6 +4,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "test-i18n-angular9": {
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ja": "src/locale/message.ja.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -26,7 +32,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "localize": ["ja"]
           },
           "configurations": {
             "production": {
