@@ -1,27 +1,44 @@
-# TestI18n
+# ng serve OOM POC
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.4.
+## Environments
 
-## Development server
+ * Ubuntu 18.04.4 LTS x86_64
+ * Node v12.18.2
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Preconditions
 
-## Code scaffolding
+ * It uses `@angular/localize`.
+ * It is configured to use ES5.
+ * It loads large object.
+     * In this repository, `encoding-japanese` library has large objects to convert encoding.  
+ * It is configured to generate sourcemaps (Default)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Result
 
-## Build
+with localize and ES5 and sourcemap: ng serve consumes 7.1GB of memory
+```shell
+$ npm ci && /usr/bin/time -f '%M' node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve
+(skipped)
+7113592
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+without sourcemap: ng serve consumes 0.8GB of memory
+```shell
+$ npm ci && /usr/bin/time -f '%M' node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve --no-source-map
+(skipped)
+848624
+```
 
-## Running unit tests
+without localize: ng serve consumes 0.8GB of memory
+```shell
+$ npm ci && /usr/bin/time -f '%M' node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve -c disable-localize
+(skipped)
+813356
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+build target is ES2015: ng serve consumes 0.8GB of memory
+```shell
+$ npm ci && /usr/bin/time -f '%M' node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve -c es2015
+(skipped)
+860044
+```
