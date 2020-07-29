@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as encoding from 'encoding-japanese'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'test-i18n-angular9';
+  title = 'test-i18n';
+  sjisArray = encoding.convert(new Uint8Array([]), 'UTF8', 'SJIS');
 }
